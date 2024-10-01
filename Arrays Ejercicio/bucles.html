@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucles</title>
+</head>
+<body>
+    
+    <script>
+
+        function Usuario(userName, email, nombre) {
+
+            this.userName = userName;
+            this.email = email;
+            this.nombre = nombre;
+
+        }
+
+        var usuario = new Usuario("blaserna", "lbe@paucasesnovescifp.cat", "Belén");
+        var usuario1 = new Usuario("Petrus", "ppi@paucasesnovescifp.cat", "Ivan");
+        var usuario2 = new Usuario("Abassi", "iam@paucasesnovescifp.cat", "Ivan");
+        var usuarios = [usuario, usuario1, usuario2];
+
+        //Bucle while
+        var i = 0;
+        while (i < usuarios.length) {
+
+            console.log(usuarios[i].userName)
+            console.log(usuarios[i].email)
+            console.log(usuarios[i].nombre)
+
+        }
+
+        //Bucle for
+        for (var i = 0; i < usuarios.length; i++) {
+
+            console.log(usuarios[i].userName)
+
+        }
+
+    </script>
+
+</body>
+</html>

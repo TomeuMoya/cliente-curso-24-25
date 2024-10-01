@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones</title>
+</head>
+<body>
+    
+    <script>
+
+        function suma(a,b) {
+
+            return a + b; //Devuelve la suma
+
+        }
+
+        console.log("Resultado: ", suma(2,3));
+
+        //Las funciones en js son valores
+        var a = suma(5,5);
+        console.log(a);
+
+        var b = suma; //b guarda toda la función suma
+        var c = b(4,5) // 9
+        console.log(b);
+        console.log(c);
+
+        // Constructor para objetos a partir de una función
+        function Persona(nombre, apellidos) {
+
+            this.nombre = nombre;
+            this.apellidos = apellidos;
+
+        }
+
+        persona1 = new Persona("Tomeu", "Moyà Villalonga");
+        console.log(persona1);
+
+        //Funciones anónimas
+        var a = function() {
+
+            return "Hola";
+
+        }
+
+        var b = function(x) {
+
+            return "Hola " + x
+
+        }
+
+        console.log(b("Tomeu"));
+        console.log(a()); //Hay que poner paréntesis al lado de la a debido a que si nos el js interpreta que es una variable
+
+        //Funciones flecha
+        var c = () => {
+
+            return "Hola"
+
+        }
+
+        var d = (x) => {
+
+            return "Hola " + x
+
+        }
+
+        console.log(c);
+        console.log(d("Pepe")); //A efectos prácticos tanto las funciones anónimas como las flecha sirvern para lo mismo, solo cambia la estructura
+
+    </script>
+
+</body>
+</html>

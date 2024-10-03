@@ -11,6 +11,17 @@
     border-radius: 10px;
 }
 
+.contenedor {
+
+    /*width: 700px;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;*/
+    background-color: beige;
+
+}
+
 .key {
     display: inline-block;
     position: relative;

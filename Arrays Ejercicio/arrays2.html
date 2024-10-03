@@ -9,7 +9,22 @@
     
     <script>
         
-        var
+        var frutas = ["manzana", "pera", "uva", "fresa", "mango"];
+        console.log(frutas[0], frutas[1], frutas[2], frutas[3], frutas[4]); //obtenemos los valores de cada posición del array
+
+        frutas.push("sandía"); //agregamos un nuevo valor al final del array
+        console.log(frutas);
+
+        var a = frutas.pop(); //eliminamos el último valor del array
+        console.log(frutas, frutas[0]); //mostramos el array sin el último valor
+        console.log(a); //mostramos el valor eliminado
+
+        frutas.unshift("melón"); //agregamos un nuevo valor al inicio del array
+        console.log(frutas);
+
+        var b = frutas.shift(); //eliminamos el primer valor del array
+        console.log(frutas, frutas[0]); //mostramos el array sin el primer valor
+        console.log(b); //mostramos el valor eliminado
 
         //Obtener tamaño de una array
         var tam = frutas.length;    

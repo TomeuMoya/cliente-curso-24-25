@@ -20,6 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: none, url(../img/background/background11.jpg);
 
 }
 
@@ -31,10 +32,36 @@ body {
     margin: auto;
     border-radius: 10px;
     justify-content: center;
-    background-color: beige;
+    background-color: white;
 
 }
 
+.cerca {
+
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.titol1 {
+
+    margin-bottom: 10px;
+
+}
+
+.boton1 {
+
+    margin: 10px;
+    width: 100px;
+    padding: 7px 7px;
+    cursor: pointer;
+    color: gainsboro;
+    background-color: crimson;
+    border: none;
+
+}
 
 .key {
     display: inline-block;

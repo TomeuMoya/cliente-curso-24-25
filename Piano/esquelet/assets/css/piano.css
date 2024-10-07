@@ -63,6 +63,57 @@ body {
 
 }
 
+.boton2 {
+
+    margin: 10px;
+    width: 130px;
+    padding: 7px 7px;
+    align-items: center;
+    cursor: pointer;
+    color: gainsboro;
+    background-color: crimson;
+    border: none;
+
+}
+
+.resultats {
+
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sant-antoni {
+
+    list-style-type: none;
+    display: flex;
+
+}
+
+.nomcanço {
+
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.lletra {
+
+    color: crimson;
+
+}
+
+.balenguera {
+
+    list-style-type: none;
+    display: flex;
+
+}
+
 .key {
     display: inline-block;
     position: relative;

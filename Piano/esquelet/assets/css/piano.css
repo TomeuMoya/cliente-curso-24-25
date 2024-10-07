@@ -90,6 +90,7 @@ body {
 
     list-style-type: none;
     display: flex;
+    gap: 30px 30px;
 
 }
 
@@ -111,6 +112,7 @@ body {
 
     list-style-type: none;
     display: flex;
+    gap: 85px 85px;
 
 }
 

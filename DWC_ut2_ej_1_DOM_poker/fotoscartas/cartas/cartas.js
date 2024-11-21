@@ -3,31 +3,44 @@ function Carta(numero, palo) {
     this.numero = numero;
     this.palo = palo
 
-    if (palo == "Corazones" || palo == "Diamantes") {
-        
+    if (palo == "hearts" || palo == "diamonds") {
+
         this.color = 'Rojo';
 
     } else {
 
         this.color = 'Negro';
-        
+
     }
 
 }
 
-const palos = ["Corazones", "Diamantes", "Picas", "Trebol"];
-const numeros = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
-const baraja = [];
+function Player(nombre, mano) {
+
+    this.nombre = nombre;
+    this.mano = mano;
+
+}
+
+const palos = ["hearts", "diamonds", "spades", "clubs"];
+const numeros = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"];
+var baraja = [];
 
 //Creamos la baraja
-for (let palo of palos) {
+function crearBaraj() {
 
-    for (let numero of numeros) {
+    baraja = [];
 
-        baraja.push(new Carta(numero, palo))
-    
+    for (let palo of palos) {
+
+        for (let numero of numeros) {
+
+            baraja.push(new Carta(numero, palo))
+
+        }
+
     }
-    
+
 }
 
 //La barajamos
@@ -35,7 +48,7 @@ function barajar(baraja) {
 
     return baraja.sort(
 
-        function() {
+        function () {
             return Math.random() - 0.5;
         }
 
@@ -52,7 +65,7 @@ function repartir(baraja) {
     for (let carta of baraja) {
 
         mano.push(carta);
-        let indice = baraja.indexOf(carta); 
+        let indice = baraja.indexOf(carta);
         baraja.splice(indice, 1);
 
         if (mano.length == 5) {
@@ -67,70 +80,109 @@ function repartir(baraja) {
 
 }
 
+crearBaraj();
 let mano = repartir(baraja);
 console.log(baraja);
 console.log(mano);
 
-let app = document.querySelector("#app");
-app.innerHTML = "";
+let player = null;
 
-// //Generador de cartas
-// function crearBaraja() {
-//     for (let palo of palos) {
+//Creamos el boton de jugar
+let botjugar = document.createElement("button");
+botjugar.innerHTML = "Jugar";
+document.body.appendChild(botjugar);
 
-//         for (let valor of numero) {
+//Creamos volver a jugar
+let botvolver = document.createElement("button");
+botvolver.innerHTML = "Volver a jugar";
+botvolver.style.display = "none";
+document.body.appendChild(botvolver);
 
-//             const carta = {
+//Mostrar cartas en pantalla
+function mostrar(player) {
+    const manoContainer = document.getElementById("manoContainer");
+    manoContainer.innerHTML = ""; // Limpia la mano anterior
 
-//                 numero: valor,
-//                 palo: palo.nombre,
-//                 color: palo.color
+    // Mostrar cada carta del jugador
+    player.mano.forEach((carta, index) => {
+        const cartaDiv = document.createElement("div");
+        const cartaImg = document.createElement("img");
 
-//             };
+        // Construimos la ruta de la imagen con el formato 'numero_of_palo.png'
+        let nombreArchivo = `${carta.numero}_of_${carta.palo}.png`;
 
-//             baraja.push(carta);
+        // Actualizamos la ruta para que apunte a la carpeta correcta
+        cartaImg.src = `../${nombreArchivo}`;
+        cartaImg.alt = `${carta.numero} of ${carta.palo}`;
+        cartaImg.style.width = "100px"; // Ajusta el tamaño si es necesario
+        cartaImg.style.margin = "10px"; // Un poco de espacio entre las cartas
 
-//         }
-//     }
+        // Añadimos la imagen al div
+        cartaDiv.appendChild(cartaImg);
+        manoContainer.appendChild(cartaDiv);
+    });
+}
 
-//     console.log(baraja);
+//Creamos el evento para cuando se clique el boton jugar
+botjugar.addEventListener("click", function () {
 
-// }
+    //Creamos el jugador si aun no estaba creado y le damos las cartas
+    if (!player) {
 
-// function mezclar(baraja) {
+        let playername = prompt("Introduzca su nombre");
+        let playermano = repartir(baraja);
+        player = new Player(playername, playermano);
 
-//     return baraja.sort(() => Math.random() - 0.5);
+    }
 
-// }
+    mostrar(player);
+    let mensaje = comprobar(player.mano);
+    let div = document.createElement("div");
+    document.querySelector("body").appendChild(div);
+    div.innerHTML = mensaje;
+    div.id = "alerta";
+    botjugar.style.display = "none";
+    botvolver.style.display = "inline";
 
-// // // Repartir mano
-// function repartir(baraja) {
+})
 
-//     let mano = [];
-//     contador = 0;
+botvolver.addEventListener("click", function () {
 
-//     for (let carta of baraja) {
+    if (baraja.length < 52) {
 
-//         if (contador === 5) {
+       crearBaraj();
+        
+    }
 
-//             break;
+    player.mano = repartir(baraja);
+    mostrar(player);
+    let mensaje = comprobar(player.mano);
+    let div = document.getElementById("alerta");
+    div.innerHTML = mensaje;
 
-//         } else {
+})
 
-//         mano.push(carta);
-//         // baraja.splice(carta);
-//         contador++;
+// Contenedor para mostrar la mano
+let manoContainer = document.createElement("div");
+manoContainer.id = "manoContainer";
+document.body.appendChild(manoContainer);
 
-//         }
+function comprobar(mano) {
 
-//     }
+    for (let i = 0; i < mano.length; i++) {
 
-//     return mano;
+        for (let j = i + 1; j < mano.length; j++) {
+            
+            if (mano[i].numero == mano[j].numero) {
+                
+                return "Enhorabona, has trobat una parella";
+                
+            }
+            
+        }
 
-// }
+    }
+    
+    return "No s'han trobat parelles";
 
-// crearBaraja();
-// mezclar(baraja);
-// let mano = repartir(baraja);
-// console.log(mano);
-// console.log(baraja);
+}

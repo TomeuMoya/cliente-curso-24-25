@@ -1,0 +1,104 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Header principal */
+header {
+    background-color: #d32f2f; /* Rojo */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Título izquierda, botones derecha */
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+header .title {
+    font-style: italic;
+}
+
+header .header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+header .header-buttons button {
+    background-color: #b71c1c; /* Rojo más oscuro */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.6em;
+    text-transform: uppercase;
+}
+
+header .header-buttons button:hover {
+    background-color: #9c1c1c;
+}
+
+/* Botón Nova Partitura */
+.nova-partitura {
+    display: block;
+    width: 100%;
+    background-color: #d32f2f;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.nova-partitura:hover {
+    background-color: #b71c1c;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #b71c1c; /* Rojo */
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color gris claro alternativo */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* Blanco */
+}
+
+/* Acciones */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions span {
+    color: #b71c1c;
+    cursor: pointer;
+}
+
+.actions span:hover {
+    color: #d32f2f;
+}

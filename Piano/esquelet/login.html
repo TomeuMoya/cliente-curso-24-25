@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            font-family: Arial, sans-serif;
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Score Finder</h1>
+    <form>
+        <label for="email">Correu electrònic</label>
+        <input type="email" id="email" placeholder="Correu electrònic" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required>
+
+        <button type="submit">Entrar</button>
+    </form>
+</body>
+</html>

@@ -1,7 +1,6 @@
 let tabla = document.createElement("table"); // <table></table>
 let thead, th, tr, td;
 const titulos = ['Títol', 'Idioma Original', 'Accions']; //Noms dels títols
-tabla.border = "1";
 
 //Insertamos la tabla en el body y creamos el encabezado
 document.body.appendChild(tabla);

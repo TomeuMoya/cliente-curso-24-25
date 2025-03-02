@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrera de promesas</title>
+</head>
+<body>
+
+    <script>
+
+        let imagenes = ["foto1.jpg", "foto2.jpg", "foto3.jpg", "foto4.jpg", "foto5.jpg"];
+        let promesas = [];
+
+        function cargarImagenes(nomrbe) {
+
+            return new Promise((resolve) => {
+
+                let tiempo = Math.floor(Math.random() * 5) + 1;
+
+                setTimeout(() => {
+
+                    resolve(`Cargada la imagen ${nomrbe}`);
+
+                }, (1000 * tiempo));
+
+            })
+
+        }
+
+        imagenes.forEach(imagen => {
+
+            promesas.push(cargarImagenes(imagen));
+
+        })
+
+        console.log("⌛ Cargando imagenes...")
+
+        Promise.race(promesas)
+            .then((resultado) => {
+
+                console.log(resultado);
+
+            }) .catch((err) => {
+
+                console.log("❌ Error");
+
+            })
+
+    </script>
+</body>
+</html>

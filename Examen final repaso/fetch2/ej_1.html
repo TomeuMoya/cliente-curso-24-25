@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petición get</title>
+</head>
+<body>
+    <script>
+
+        let url = "https://jsonplaceholder.typicode.com/posts";
+
+        function getInfo(url) {
+
+            fetch(url)
+                .then(response => {
+
+                    if(!response.ok) {
+
+                        switch(response.status) {
+
+                            case 404:
+                                
+                                throw new Error(`❌ Error ${response.status}: Servidor no encontrado`);
+                                break;
+
+                            case 500:
+                                
+                                throw new Error(`❌ Error ${response.status}: Error interno del servidor`);
+                                break;
+
+                            default:
+
+                                throw new Error(`❌ Error ${response.status}: Error en la petición`);
+
+                        }
+
+                    }
+
+                    return response.json();
+                    
+                }) .then(data => {
+
+                    let table = document.createElement("table");
+                    table.border = "1";
+                    table.style.width = "100%";
+                    table.style.borderCollapse = "collapse";
+                    document.body.append(table);
+
+                    let thead = document.createElement("thead");
+                    thead.innerHTML = `
+                    
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                    
+                    `;
+                    table.appendChild(thead);
+
+                    let tbody = document.createElement("tbody");
+                    table.appendChild(tbody);
+
+                    data.slice(0, 10).forEach(dato => {
+
+                        let fila = document.createElement("tr");
+
+                        fila.innerHTML = `
+                            <td>${dato.id}</td>
+                            <td>${dato.title}</td>
+                            <td>${dato.body}</td>
+                        `;
+
+                        tbody.appendChild(fila);
+
+                        console.log(`✅ Publicaicones cargadas correctamente`);
+
+                    })
+
+                }) .catch(err => console.log(err))
+
+        }
+
+        getInfo(url);
+
+    </script>
+</body>
+</html>

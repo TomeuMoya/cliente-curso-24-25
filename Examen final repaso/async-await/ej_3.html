@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encadenar solicitudes con async/await</title>
+</head>
+<body>
+    <script>
+
+        let url = "https://jsonplaceholder.typicode.com/users";
+        obtenerUsuariosYPosts(url);
+
+        async function obtenerUsuariosYPosts(url) {
+
+            try {
+
+                //Listar usuarios
+                let listaUsers = await fetch(url);
+
+                if(!listaUsers.ok) {
+
+                    throw new Error(`❌ Error ${listaUsers.status}: No se pudo obtener la lista de usuarios`);
+
+                }
+
+                let users = await listaUsers.json();
+
+                if(users.lentgh < 1) {
+
+                    throw new Error("❌ Lista vacia");
+
+                }
+
+                let primerUser = users[0];
+                console.log(`✅ Primer usuario encontrado: ${primerUser.name}`);
+
+                //Obtener publicaciones
+                let posts = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${primerUser.id}`);
+
+                if(!posts.ok) {
+
+                    throw new Error(`Error ${posts.status}: No se pudo obtener los posts`);
+
+                }
+
+                let fpost = await posts.json();
+
+                console.log(`📖 Posts de ${primerUser.name}:`)
+
+                fpost.forEach(post => {
+
+                    console.log(`- ${post.title}`);
+
+                })
+
+            } catch(err) {
+
+                console.log("❌ Ocurrió un error inesperado. ", error.message);
+
+            }
+
+        }
+
+    </script>
+</body>
+</html>

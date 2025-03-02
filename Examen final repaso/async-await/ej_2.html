@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar datos con async/await</title>
+</head>
+<body>
+    <script>
+
+        let url = "https://jsonplaceholder.typicode.com/posts";
+        let datosPost = {
+
+            userId: 1,
+            title: "Nueva info",
+            body: "Post nuevo"
+
+        }
+
+        async function postInfo(url, datos) {
+
+            try{
+
+                let respuesta = await fetch(url, {
+
+                    method: "POST",
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+                    body: JSON.stringify(datos)
+
+                });
+
+                if(!respuesta.ok) {
+
+                    throw new Error(`❌ Error ${respuesta.status}: No se pudo realizar la petición`);
+
+                }
+
+                let resolve = await respuesta.json();
+
+                console.log("Post realizado con éxito: \n\n", JSON.stringify(resolve, null, 2));
+
+            } catch (err) {
+
+                console.log("Error al enviar los datos: ", err.message);
+
+            }
+
+        }
+
+        postInfo(url, datosPost);
+
+    </script>
+</body>
+</html>

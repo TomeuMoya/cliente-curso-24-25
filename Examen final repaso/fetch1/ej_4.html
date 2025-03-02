@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo multiples consultas</title>
+</head>
+<body>
+    <script>
+
+        let direcciones = [
+        
+        "https://jsonplaceholder.typicode.com/posts",
+        "https://jsonplaceholder.typicode.com/users", 
+        "https://jsonplaceholder.typicode.com/comments"
+        
+        ];
+        
+        let promesas = [];
+
+        direcciones.forEach(url => {
+
+            promesas.push(fetch(url));
+
+        })
+
+        Promise.all(promesas)
+            .then(response => {
+
+                response.forEach(res => {
+
+                    if(!res.ok) {
+
+                        throw new Error("❌ Error");
+
+                    }
+
+                    res.json().then(data => console.log(data)).catch(err => console.log(err));
+
+                });
+
+            }) .catch(err => console.log(err.message))
+
+    </script>
+</body>
+</html>

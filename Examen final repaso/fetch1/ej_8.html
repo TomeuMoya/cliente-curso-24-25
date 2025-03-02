@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Url inexistente</title>
+</head>
+<body>
+    <script>
+
+        function urlNoValida(url) {
+
+            fetch(url)
+                .then(response => {
+
+                    if(!response.ok) {
+
+                        throw new Error(`❌ Error ${response.status}: No se pudo realizar la petición`);
+
+                    }
+
+                    return response.json()
+
+                }) .then(data => {
+
+                    console.log(`✅ Petición con url ${url} realizada`);
+
+                }) .catch(err => console.log(err.message))
+
+        }
+
+        urlNoValida("https://jsonplaceholder.typicode.com/invalid-url");
+
+    </script>
+</body>
+</html>

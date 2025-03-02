@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <script>
+
+        let urls = [
+        
+        "https://jsonplaceholder.typicode.com/posts", 
+        "https://jsonplaceholder.typicode.com/users", 
+        "https://jsonplaceholder.typicode.com/comments"
+        
+        ];
+
+        async function variasPromesas(urls) {
+
+            try {
+
+                let promesas = [];
+
+                urls.forEach(url => {
+    
+                    promesas.push(fetch(url));
+    
+                })
+    
+                let response = await Promise.all(promesas);
+    
+                if(!(response[0].ok && response[1].ok && response[2].ok)) {
+
+                    throw new Error(`❌ Error ${response.status}`);
+
+                }
+
+                let respuesta = [];
+
+                for(let i = 0; i < promesas.length; i++) {
+
+                    respuesta.push(await response[i].json());
+
+                }
+
+                respuesta.forEach(res => {
+
+                    console.log(JSON.stringify(respuesta, null, 2));
+                    console.log("------------------------------------------------------")
+
+                })
+               // let posts = await response[0].json();
+                //let users = await response[1].json();
+                //let coments = await response[2].json();
+    
+                //console.log(JSON.stringify(posts, null, 2), JSON.stringify(users, null, 2), JSON.stringify(coments, null, 2));
+
+            } catch(err) {
+                
+                console.log("❌ Ocurrió un error inesperado. ", err.message);
+
+            }
+
+        }
+
+        variasPromesas(urls);
+
+    </script>
+</body>
+</html>

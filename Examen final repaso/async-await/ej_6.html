@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar datos</title>
+</head>
+<body>
+    <script>
+
+        let url = `https://jsonplaceholder.typicode.com/posts/`
+
+        async function delInfo(id) {
+
+            try {
+
+                let respuesta = await fetch((url + id), {
+
+                    method: "DELETE",
+                    headers: {
+    
+                        "Content-Type": "applications/json"
+    
+                    }
+    
+                });
+    
+                if(!respuesta.ok) {
+    
+                    throw new Error(`❌ Error ${respuesta.status}: No se pudo resolver la petición`);
+    
+                }
+    
+                let resolve = await JSON.stringify(respuesta);
+    
+                console.log(`✅ La información eliminada perenece al id ${id}`);
+
+            } catch(err) {
+
+                console.log("❌ Ha ocurrido un error. ", err.message)
+
+            }
+
+        }
+
+        delInfo(1);
+
+    </script>
+</body>
+</html>

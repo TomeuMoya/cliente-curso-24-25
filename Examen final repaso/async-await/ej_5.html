@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar datos</title>
+</head>
+<body>
+    <script>
+
+        let url = "https://jsonplaceholder.typicode.com/users/1";
+        let modInfo = {
+
+            name: "Nuevo Nombre",
+            email: "nuevomail@gmail"
+
+        }
+
+        async function update(url, modInfo) {
+
+            try {
+
+                let respuesta = await fetch(url, {
+
+                    method: "PUT",
+                    headers: {
+    
+                        "Content-Type": "application/json"
+    
+                    },
+                    body: JSON.stringify(modInfo)
+    
+                })
+    
+                if(!respuesta.ok) {
+    
+                    throw new Error(`❌ Error ${respuesta.status}`);
+    
+                }
+    
+                let resolve = await respuesta.json();
+    
+                console.log(`✅ Petición de modificación aceptada. La info modificada es: \nNombre => ${resolve.name} \nEmail => ${resolve.email}`);
+
+            } catch(err) {
+
+                console.log ("❌ Error, algo falló. ", err.message)
+
+            }
+
+        }
+
+        update(url, modInfo);
+
+    </script>
+</body>
+</html>

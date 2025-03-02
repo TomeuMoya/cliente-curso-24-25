@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversión de callbak a promesa</title>
+</head>
+<body>
+    
+    <!-- Callback -->
+    <h1>Función con callback</h1>
+
+    <label for="call">📥 Descargar archivo</label>
+    <button id="call">Pulsar aquí</button>
+
+    <p id="cmens"></p>
+
+    <!-- Promise -->
+    <h1>Función con Promise</h1>
+
+    <label for="call">📥 Descargar archivo</label>
+    <button id="prom">Pulsar aquí</button>
+
+    <p id="pmens"></p>
+
+    <script>
+
+        // Función callback
+        let cmens = document.getElementById("cmens");
+        let botoc = document.getElementById("call");
+
+        function descargacall(callback) {
+
+            setTimeout(() => {
+
+                callback("✅ Descarga completada")
+
+            }, 2000)
+
+        }
+
+        botoc.addEventListener("click", () => {
+
+            cmens.style = "";
+            cmens.textContent = "Descargando...";
+
+            descargacall(function(result) {
+
+                cmens.textContent = result;
+                cmens.style = "color: green"
+
+            });
+
+        })
+
+        // Función promise
+        let pmens = document.getElementById("pmens");
+        let botop = document.getElementById("prom");
+
+        function descargarprom() {
+
+            return new Promise((resolve) => {
+
+                setTimeout(() => {
+
+                    resolve("✅ Descarga completada");
+
+                }, 2000)
+
+            });
+
+        }
+
+        botop.addEventListener("click", () => {
+
+            pmens.textContent = "Descagrando...";
+            pmens.style = "";
+
+            descargarprom()
+                .then((result) => {
+
+                    pmens.textContent = result;
+                    pmens.style = "color: green";
+
+                });
+
+        })
+
+    </script>
+</body>
+</html>

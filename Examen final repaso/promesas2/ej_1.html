@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Usuarios en una Api simulada</title>
+</head>
+<body>
+    
+    <h1>Lista de Usuarios</h1>
+
+    <button id="boto">Obtener</button>
+
+    <pre id="mens"></pre>
+
+    <script>
+
+        let boto = document.getElementById("boto");
+        let mens = document.getElementById("mens");
+        
+        function obtenerUsuarios() {
+
+            return new Promise((resolve, reject) => {
+
+                let num = Math.floor(Math.random() * 10) + 1;
+
+                setTimeout(() => {
+
+                    if(num < 4) {
+
+                        reject("❌ Error, no se pudo realizar el listado");
+    
+                    } else {
+    
+                        resolve([
+                            
+                            {id: 1, nombre: "Tomeu"},
+                            {id: 2, nombre: "Ivan"},
+                            {id: 3, nombre: "Helena"},
+                            {id: 4, nombre: "Yuk"}
+    
+                        ]);
+    
+                    }
+
+                }, 2000);
+
+            });
+
+        }
+
+        boto.addEventListener("click", () => {
+
+            mens.style = "";
+            mens.textContent = "Esperando resultados...";
+
+            obtenerUsuarios()
+                .then((resultado) => {
+
+                    mens.textContent = JSON.stringify(resultado, null, 2);
+                    mens.style = "color: green";
+
+                }) .catch((err) => {
+
+                    mens.textContent = err;
+                    mens.style = "color: red";
+
+                })
+
+        })
+
+    </script>
+</body>
+</html>

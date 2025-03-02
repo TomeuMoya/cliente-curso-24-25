@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrera</title>
+</head>
+<body>
+    
+    <h1>Carrera de Promesas</h1>
+
+    <label for="boton">Empezar carrera</label>
+    <button id="boton">Pulse aqui</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+
+        var mens = document.getElementById("mensaje");
+        var boto = document.getElementById("boton");
+
+        boto.addEventListener("click", () => {
+
+            mens.style = "color: black"
+            mens.textContent = "Carrera en curso..."
+
+            let promesa1 = new Promise((resolve) => setTimeout(() => resolve("Rapida"), 5000));
+            let promesa2 = new Promise((resolve) => setTimeout(() => resolve("Media"), 4000));
+            let promesa3 = new Promise((resolve) => setTimeout(() => resolve("Lenta"), 3000));
+
+            Promise.race([promesa1, promesa2, promesa3]) 
+            .then((resultat) => {
+
+                mens.textContent = `La promesa con nombre ${resultat} ha ganado`;
+                mens.style = "color: green";
+
+            }) .catch((err) => {
+
+                mens.textContent = "Error, algo ha fallado";
+                mens.style = "color: red";
+
+            })
+
+        })
+
+    </script>
+</body>
+</html>

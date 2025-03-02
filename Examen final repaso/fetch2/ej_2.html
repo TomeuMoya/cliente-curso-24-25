@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petición Post</title>
+</head>
+<body>
+
+    <h1>Formulario para nueva publicación</h1>
+
+    <!-- Div para mostrar mensajes -->
+    <div id="mensaje"></div>
+
+    <script>
+
+        let url = "https://jsonplaceholder.typicode.com/posts";
+
+        function newInfo(url, nuevainfo) {
+
+            fetch(url, {
+
+                method: "POST",
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+                body: JSON.stringify(nuevainfo)
+
+            }) .then(response => {
+                if (!response.ok) {
+                    throw new Error(`❌ Error ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                mostrarMensaje(`✅ Publicación creada con éxito. ID: ${data.id}`, "green");
+                console.log(data)
+            })
+            .catch(error => {
+                mostrarMensaje(error.message, "red");
+            });
+
+        }
+
+        function montarForm() {
+            let form = document.createElement("form");
+            document.body.appendChild(form);
+
+            // **Campo de título**
+            let labelTitulo = document.createElement("label");
+            labelTitulo.htmlFor = "titulo";
+            labelTitulo.textContent = "Título:";
+            form.appendChild(labelTitulo);
+
+            let inputTitulo = document.createElement("input");
+            inputTitulo.id = "titulo";
+            inputTitulo.placeholder = "Escribe el título";
+            inputTitulo.required = true;
+            form.appendChild(inputTitulo);
+
+            // **Campo de contenido**
+            let labelContenido = document.createElement("label");
+            labelContenido.htmlFor = "contenido";
+            labelContenido.textContent = "Contenido:";
+            form.appendChild(labelContenido);
+
+            let inputContenido = document.createElement("textarea");
+            inputContenido.id = "contenido";
+            inputContenido.placeholder = "Escribe el contenido";
+            inputContenido.required = true;
+            form.appendChild(inputContenido);
+
+            // **Botón de envío**
+            let boton = document.createElement("button");
+            boton.type = "submit";
+            boton.textContent = "Enviar";
+            form.appendChild(boton);
+
+            // **Estilo del formulario**
+            form.style.display = "flex";
+            form.style.flexDirection = "column";
+            form.style.gap = "10px";
+            form.style.width = "300px";
+
+            // **Evento de envío del formulario**
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                // Obtenemos los valores de los inputs
+                let titulo = inputTitulo.value.trim();
+                let contenido = inputContenido.value.trim();
+
+                // Validación de campos vacíos
+                if (!titulo || !contenido) {
+                    mostrarMensaje("❌ Error: Todos los campos son obligatorios.", "red");
+                    return;
+                }
+
+                // Objeto con la nueva publicación
+                let nuevaPublicacion = {
+                    userId: 1,
+                    title: titulo,
+                    body: contenido
+                };
+
+                // Llamamos a la función para hacer el POST
+                newInfo(url, nuevaPublicacion);
+
+                // Limpiamos el formulario tras el envío
+                form.reset();
+            });
+        }
+
+        // Función para mostrar mensajes en el DOM
+        function mostrarMensaje(mensaje, color) {
+            let mensajeDiv = document.getElementById("mensaje");
+            mensajeDiv.textContent = mensaje;
+            mensajeDiv.style.color = color;
+            mensajeDiv.style.marginTop = "10px";
+        }
+
+        // Llamamos a la función para montar el formulario
+        montarForm();
+
+    </script>
+</body>
+</html>

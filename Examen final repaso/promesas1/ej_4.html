@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encadenamiento</title>
+</head>
+<body>
+    
+    <h1>Encadenamiento de Promesas</h1>
+
+    <label for="inicio"></label>
+    <button id="inicio">Pulsar aqui</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+
+        var boto = document.getElementById("inicio");
+        var mens = document.getElementById("mensaje");
+
+        function descargar() {
+
+            return new Promise((resolve) => setTimeout(() => resolve("Descarga completada"), 3000));
+
+        }
+
+        function procesar() {
+
+            return new Promise((resolve) => setTimeout(() => resolve("Archivo procesado"), 2000));
+
+        }
+
+        function guardar() {
+
+            return new Promise((resolve) => setTimeout(() => resolve("Archivo guardado"), 1000))
+
+        }
+
+        boto.addEventListener("click", () => {
+
+            mens.style = "color: black";
+            mens.textContent = "Esperando..."
+
+            descargar()
+                .then((resultat) => {
+
+                    mens.textContent = resultat;
+                    mens.style = "color: green";
+                    return procesar();
+
+                }) .then((resultat) => {
+
+                    mens.textContent = resultat;
+                    mens.style = "color: green";
+                    return guardar();
+
+                }) .then((resultat) => {
+
+                    mens.textContent = resultat;
+                    mens.style = "color: green";
+
+                }) .catch((err) => {
+
+                    mens.textContent = err;
+                    mens.style = "color: red";
+
+                })
+
+        })
+
+    </script>
+</body>
+</html>

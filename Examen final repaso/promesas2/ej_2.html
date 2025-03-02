@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadena de promesas</title>
+</head>
+<body>
+    
+    <h1>Lista productos</h1>
+    
+    <button id="boto">Cargar</button>
+
+    <pre id="mens"></pre>
+
+    <script>
+
+        let boto = document.getElementById("boto");
+        let mens = document.getElementById("mens");
+
+        function cargarProductos() {
+
+            return new Promise((resolve) => {
+
+                setTimeout(() => {
+
+                    resolve([
+
+                    { id: 1, nombre: "Teclado", precio: 30 },
+                    { id: 2, nombre: "Ratón", precio: 20 },
+                    { id: 3, nombre: "Monitor", precio: 200 }
+
+                    ]);
+
+                }, 1000);
+
+            });
+
+        }
+
+        function descuento(lista) {
+
+            return new Promise((resolve) => {
+
+                setTimeout(() => {
+
+                    lista.forEach(producto => {
+
+                        producto.precio = (producto.precio * 0.9).toFixed(2);
+
+                    });
+
+                    resolve(lista);
+
+                }, 1000)
+
+            });
+
+        }
+
+        boto.addEventListener("click", () => {
+
+            mens.style.color = "";
+            mens.textContent = "Cargando lista...";
+
+            cargarProductos()
+                .then((resultado) => {
+
+                    return descuento(resultado);
+
+                }) .then((result) => {
+
+                    mens.style.color = "green";
+                    mens.textContent = JSON.stringify(result, null, 2);
+
+                }) .catch ((err) => {
+
+                    mens.style.color = "red";
+                    mens.textContent = "❌ Error, algo falló";
+
+                })
+
+        })
+
+    </script>
+</body>
+</html>

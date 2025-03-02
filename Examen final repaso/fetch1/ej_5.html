@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulació de carga de dates amb indicador de progreso</title>
+</head>
+<body>
+    <script>
+
+        console.log("⌛ Cargando...");
+        
+        fetch("https://jsonplaceholder.typicode.com/photos")
+            .then(response => {
+
+                if(!response.ok) {
+
+                    throw new Error("❌ Error en la perición");
+
+                }
+
+                return response.json();
+
+            }) .then(data => {
+
+                setTimeout(() => {
+
+                    data.slice(0, 10).forEach(dato => console.log("Foto:", dato))
+
+                }, 2000);
+
+            }) .catch(err => console.log(err.message))
+        
+    </script>
+</body>
+</html>

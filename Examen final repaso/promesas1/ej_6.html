@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.allSettled</title>
+</head>
+<body>
+    
+    <h1>Funcionamiento allSettled</h1>
+
+    <label for="boto">Cargar tareas</label>
+    <button id="boto">Cargar</button>
+
+    <pre id="mensaje"></pre>
+
+    <script>
+
+        var boto = document.getElementById("boto");
+        var mens = document.getElementById("mensaje");
+
+        boto.addEventListener("click", () => {
+
+            var numero = Math.floor(Math.random() * 6) + 1;
+
+            let promesa1 = new Promise((resolve) => setTimeout(() => resolve("✅ Promesa 1 resuelta"), (1000 * numero)));
+            let promesa2 = new Promise((_,reject) => setTimeout(() => reject("❌ Promesa 2 rechazada"), (1000 * numero)));
+            let promesa3 = new Promise((resolve) => setTimeout(() => resolve("✅ Promesa 3 resuelta"), (1000 * numero)));
+
+            mens.style = "";
+            mens.textContent = "Esperando...";
+
+            Promise.allSettled([promesa1, promesa2, promesa3])
+                .then((resultado) => {
+
+                    mens.style = "color: black";
+                    mens.textContent = JSON.stringify(resultado, null, 2);
+
+                })
+
+        })
+
+    </script>
+</body>
+</html>

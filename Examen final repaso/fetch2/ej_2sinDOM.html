@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Formulario para inserción de nueva info</h1>
+
+    <form id="form" style="display: flex; flex-direction:column">
+
+        <label for="titulo">Titulo</label>
+        <input type="text" id="titulo" required>
+
+        <label for="contenido">Contenido</label>
+        <input type="text" id="contenido" required>
+
+        <button id="boto">Enviar</button>
+
+    </form>
+
+    <pre id="mens"></pre>
+
+    <script>
+
+        //Cogemos los elementos destacados
+        let url = "https://jsonplaceholder.typicode.com/posts";
+        let boto = document.getElementById("boto");
+        let inputCont = document.getElementById("contenido");
+        let inputTit = document.getElementById("titulo");
+        let mens = document.getElementById("mens");
+        let form = document.getElementById("form")
+
+        form.addEventListener("submit", (e) => {
+
+            e.preventDefault();
+
+            let titulo = inputTit.value.trim();
+            let contenido = inputCont.value.trim();
+
+            let nuevainfo = {
+
+                userId: 1,
+                title: titulo,
+                body: contenido
+
+            }
+
+            newInfo(url, nuevainfo);
+
+        })
+
+        function newInfo(url, nuevo) {
+
+            fetch(url, {
+
+                method: "POST",
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+                body: JSON.stringify(nuevo)
+
+            }) .then(response => {
+
+                if(!response.ok) {
+
+                    mens.textContent = `❌ Error ${response.status}: ${response.statusText}`;
+                    mens.style.color = "red"; 
+
+                }
+
+                return response.json();
+
+            }) .then(data => {
+                
+                mens.style.color = "green";
+                mens.textContent = "✅ Nueva info insertada: " + JSON.stringify(data, null, 2);
+
+            }) .catch(err => {
+                console.log(err)
+                mens.style.color = "red";
+                mens.textContent = err.message;
+
+            })
+
+        }
+
+    </script>
+</body>
+</html>

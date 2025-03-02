@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos</title>
+</head>
+<body>
+    
+    <h1>Pago con tarjeta</h1>
+
+    <label for="tarj" style="display: block;">💳 Introduzca los números de su tarjeta</label>
+    <input type="number" id="tarj" style="margin-bottom: 2%;">
+
+    <label for="cvv" style="display: block;">❔ Introduzca el CVV</label>
+    <input type="number" id="cvv" style="margin-bottom: 2%;">
+
+    <label for="pago" style="display: block;">💵 Cantidad a pagar</label>
+    <input type="number" id="pago" style="margin-bottom: 2%;">
+
+    <button id="boto">Pagar</button>
+
+    <p id="mens"></p>
+
+    <script>
+
+        let tarjeta = document.getElementById("tarj");
+        let cvv = document.getElementById("cvv");
+        let pago = document.getElementById("pago");
+
+        function validacion() {
+
+            return new Promise((resolve, reject) => {
+
+                if(tarjeta.value.length != 5) {
+
+                    reject("debe haber mínimo 5 números en la tarjeta");
+
+                } else if(cvv.value.length != 3) {
+
+                    reject("el cvv debe tener 3 dígitos");
+
+                } else if(parseFloat(pago.value) <= 0 || isNaN(parseFloat(pago.value))) {
+
+                    reject("el pago debe ser superior a 0");
+
+                } else {
+
+                    setTimeout(() => {
+
+                        resolve(`✅ El pago de ${pago.value} se ha realizado correctamente`);
+
+                    }, 2000);
+
+                }
+
+            });
+
+        }
+
+        let boto = document.getElementById("boto");
+        let mens = document.getElementById("mens");
+
+        boto.addEventListener("click", () => {
+            
+            mens.style = "";
+            mens.textContent = "📥 Procesando pago..."
+
+            validacion()
+                .then((resultado) => {
+
+                    mens.style = "color: green";
+                    mens.textContent = resultado;
+
+                }) .catch((err) => {
+
+                    mens.style = "color: red";
+                    mens.textContent = ("❌ Error al procesar pago, " + err);
+
+                });
+
+        });
+
+    </script>
+</body>
+</html>

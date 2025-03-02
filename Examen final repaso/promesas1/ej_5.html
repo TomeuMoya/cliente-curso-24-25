@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promesa personalizada</title>
+</head>
+<body>
+    
+    <h1>Lanza un dado</h1>
+
+    <label for="boton">Lanzar</label>
+    <button id="boto">Pulsar</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+
+        var mens = document.getElementById("mensaje");
+        var boto = document.getElementById("boto");
+
+        function lanzar() {
+
+            var numero = Math.floor(Math.random() * 6) + 1;
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    if(numero >= 4) {
+
+                        resolve(`Éxito, obtuviste un ${numero}`);
+    
+                    } else {
+    
+                        reject(`Fallo, obtuviste un ${numero}`);
+    
+                    }
+
+                }, 3000);
+
+            });
+
+        }
+        
+        boto.addEventListener("click", () => {
+
+            mens.style = "";
+            mens.textContent = "Lanzando...";
+
+            lanzar()
+                .then((resultado) => {
+
+                    mens.style = "color: green";
+                    mens.textContent = resultado;
+
+                }) .catch((resultado) => {
+
+                    mens.style = "color: red";
+                    mens.textContent = resultado
+
+                })
+
+        });
+
+    </script>
+</body>
+</html>

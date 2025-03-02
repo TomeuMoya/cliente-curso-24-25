@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <label for="nom">Introduzca nombre</label>
+    <input type="text" id="nom">
+    
+    <button>Buscar</button>
+    <p style = "color: red" id = "mensaje"></p>
+
+    <script>
+
+        let array = ['Tomeu', 'Helena', 'Yuk', 'Mati'];
+
+        function cercaUsuari(nom) {
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    if(!nom.trim) {
+
+                        reject("No s'ha introduït cap nom");
+
+                    } else if(array.includes(nom)) {
+
+                        resolve("Usuario encontrado")
+
+                    } else {
+
+                        reject("Usuario no encontrado")
+
+                    }
+
+                }, 2000);
+
+            });    
+
+        };
+
+        const nomInput = document.getElementById("nom");
+        const boto = document.querySelector("button");
+        const parr = document.getElementById("mensaje");
+
+        boto.addEventListener("click", () => {
+
+            const nom = nomInput.value.trim();
+            parr.textContent = "Buscando Usuario";
+            parr.className = "";
+
+            cercaUsuari(nom)
+                .then((resultat) => {
+
+                    parr.textContent = resultat;
+                    parr.className = "Success"
+
+                })
+
+                .catch((err) => {
+
+                    parr.textContent = err;
+                    parr.className = "Error";
+
+                });
+
+        });
+
+
+    </script>
+</body>
+</html>

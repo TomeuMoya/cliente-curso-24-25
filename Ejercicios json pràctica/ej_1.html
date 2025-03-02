@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda Online - Productos</title>
+    <style>
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .destacado {
+            background-color: #ffeb3b;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align: center;">🛒 Productos Disponibles</h1>
+    <table id="tabla-productos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        // 🔹 Datos JSON de productos
+        const productos = [
+            { "id": 1, "nombre": "Camisa", "precio": 20.99 },
+            { "id": 2, "nombre": "Pantalón", "precio": 35.50 },
+            { "id": 3, "nombre": "Zapatos", "precio": 50.00 }
+        ];
+
+        // 🔸 Función para mostrar los productos en la tabla sin usar innerHTML
+        const mostrarProductos = () => {
+            const tbody = document.querySelector("#tabla-productos tbody");
+
+            // 🔥 Limpiar la tabla antes de actualizar
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            productos.forEach(producto => {
+                const fila = document.createElement("tr");
+
+                // 🔹 Crear y agregar las celdas a la fila
+                const celdaId = document.createElement("td");
+                celdaId.textContent = producto.id;
+                fila.appendChild(celdaId);
+
+                const celdaNombre = document.createElement("td");
+                celdaNombre.textContent = producto.nombre;
+                fila.appendChild(celdaNombre);
+
+                const celdaPrecio = document.createElement("td");
+                celdaPrecio.textContent = `$${producto.precio.toFixed(2)}`;
+                fila.appendChild(celdaPrecio);
+
+                // 🔹 Celda del botón de destacar
+                const celdaBoton = document.createElement("td");
+                const boton = document.createElement("button");
+                boton.textContent = "⭐ Destacar";
+                boton.addEventListener("click", () => {
+                    fila.classList.toggle("destacado");
+                });
+
+                celdaBoton.appendChild(boton);
+                fila.appendChild(celdaBoton);
+
+                // 🔹 Agregar la fila completa al tbody
+                tbody.appendChild(fila);
+            });
+        };
+
+        // 🔥 Mostrar los productos al cargar la página
+        document.addEventListener("DOMContentLoaded", mostrarProductos);
+    </script>
+
+</body>
+</html>

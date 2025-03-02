@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio mensajes</title>
+</head>
+<body>
+    
+    <h1>Envio de mensajes</h1>
+
+    <label for="boto">Envia "Hola"</label>
+    <button id="boto">Enviar</button>
+
+    <pre id="mens"></pre>
+
+    <script>
+
+        let boto = document.getElementById("boto");
+        let mens = document.getElementById("mens");
+
+        function enviarMensaje(nombre) {
+
+            return new Promise((resolve, reject) => {
+
+                let fallo = Math.floor(Math.random() * 10) + 1;
+
+                setTimeout(() => {
+
+                    if(fallo < 4) {
+
+                        reject(`❌ Hubo un error en el envio del mensaje a ${nombre} y se suspendió la operación`);
+
+                    } else {
+
+                        resolve(`✅ Éxito, el mensaje ha sido enviado a ${nombre}`);
+
+                    }
+
+                }, 2000);
+
+            });
+
+        }
+
+        let usuarios = ["Juan", "Ana", "Luis", "María"];
+
+        boto.addEventListener("click", () => {
+
+            mens.style.color = "";
+            mens.textContent = "⌛ Esperando envio..."
+           // let promesas = usuarios.map(usuario =>
+             //   enviarMensaje(usuario).catch(err => err) Manera de resolver esto con un .map. Es la manera más elegante y limpia
+            //);
+
+            let promesas = [];
+            usuarios.forEach(usuario => {
+                
+                promesas.push(enviarMensaje(usuario));
+
+            });
+
+            Promise.all(promesas)
+                .then((resultado) => {
+
+                    mens.style.color = "green";
+                    mens.textContent = JSON.stringify(resultado, null, 2);
+
+                }) .catch((err) => {
+
+                    mens.style.color = "red";
+                    mens.textContent = err;
+
+                })
+
+        }) 
+
+    </script>
+</body>
+</html>

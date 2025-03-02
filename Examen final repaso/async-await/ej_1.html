@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener info de usuarios</title>
+</head>
+<body>
+    <script>
+
+        async function obtenerDatos() {
+
+            try {
+
+                console.log("⌛ Cargando...");
+
+                let respuesta = await new Promise((resolve, reject) => {
+
+                    setTimeout(() => {
+
+                        let exito = Math.floor(Math.random() * 10) + 1;
+
+                        if(exito > 4) {
+
+                            resolve("✅ Datos recibidos correctamente");
+
+                        } else {
+
+                            reject("❌ Error, datos no recibidos")
+
+                        }
+
+                    }, 2000)
+    
+                })
+
+                console.log(respuesta + ". Felicidades!");
+
+            }catch (err) {
+
+                console.log(err);
+
+            }
+
+        }
+
+        obtenerDatos();
+
+    </script>
+</body>
+</html>
